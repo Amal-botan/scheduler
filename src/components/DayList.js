@@ -11,7 +11,7 @@ export default function DayList(props) {
     name={dayOfWeek.name} 
     spots={dayOfWeek.spots} 
     selected={dayOfWeek.name === props.day}
-    setDay={props.setDay}  /> 
+    setDay={() => props.setDay(dayOfWeek.name)}  /> 
     )
   
 
