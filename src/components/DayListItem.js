@@ -23,7 +23,7 @@ export default function DayListItem(props) {
 
   console.log(formatSpots(props.spots));
 
-  const handleClick = () => {props.setDay(props.name)}; 
+  // const handleClick = () => {props.setDay(props.name)}; 
 
   console.log("props", props);
 

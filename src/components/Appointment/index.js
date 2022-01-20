@@ -12,6 +12,7 @@ import Form from "components/Appointment/Form.js";
 
 import "components/Appointment/styles.scss";
 
+
 export default function Appointment(props) {
  let appointment = ""
 
