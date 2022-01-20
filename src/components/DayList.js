@@ -10,8 +10,8 @@ export default function DayList(props) {
   const dayComponents = days.map(dayOfWeek => <DayListItem key={dayOfWeek.id}
     name={dayOfWeek.name} 
     spots={dayOfWeek.spots} 
-    selected={dayOfWeek.name === props.day}
-    setDay={() => props.setDay(dayOfWeek.name)}  /> 
+    selected={dayOfWeek.name === props.value}
+    setDay={() => props.onChange(dayOfWeek.name)}  /> 
     )
   
 
