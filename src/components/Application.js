@@ -4,8 +4,10 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
+import { getAppointmentsForDay } from "helpers/selectors";
 
-const appointments = [
+
+const appointmentsArr = [
   {
     id: 1,
     time: "12pm",
@@ -44,7 +46,6 @@ const appointments = [
   }
 ];
 
-
 export default function Application(props) {
   // const [day, setDay] = useState("Monday");
   // const [days, setDays] = useState([]);
@@ -53,27 +54,39 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    // you may put the line below, but will have to remove/comment hardcoded appointments variable
     appointments: {}
   });
 
+  
+
   const setDay = day => setState({ ...state, day });
 
-  const setDays = days => setState(prev => ({ ...prev, days }));
+ 
+  const dailyAppointments =  getAppointmentsForDay(state, state.day);
 
-  const appointmentList = appointments.map((appointment) => {
+  useEffect(() => {
+    const daysURL = `http://localhost:8001/api/days`;
+    const appointmentsURL = `http://localhost:8001/api/appointments`;
+    const interviewersURL = `http://localhost:8001/api/interviewers`;
+    Promise.all([
+      axios.get(daysURL),
+      axios.get(appointmentsURL),
+      axios.get(interviewersURL)
+    ]).then((all) => {
+      console.log(all)
+      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviews: all[2].data}));
+      
+    }).catch((err) => {
+      console.log('err')
+    });
+  },[]);
+
+
+  const appointmentList = dailyAppointments.map((appointment) => {
     return (
     <Appointment key={appointment.id} {...appointment}/>
     )
   })
-
-  useEffect(() => {
-    const daysURL = `http://localhost:8001/api/days`;
-    axios.get(daysURL).then(response => {
-      console.log("Response Data",response.data);
-      setDays([...response.data]);
-    });
-  },[]);
 
   console.log("day of Daylist",state.day);
 
