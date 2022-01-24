@@ -11,7 +11,13 @@ import Error from "components/Appointment/Error.js";
 import Form from "components/Appointment/Form.js";
 
 import "components/Appointment/styles.scss";
+import useVisualMode from "hooks/useVisualMode";
+import { tsPropertySignature } from "@babel/types";
 
+
+const EMPTY = "EMPTY";
+const SHOW = "SHOW";
+const CREATE = "CREATE";
 
 export default function Appointment(props) {
  let appointment = ""
@@ -22,6 +28,10 @@ export default function Appointment(props) {
     appointment += 'No appointments'
   }
 
+  const { mode, transition, back } = useVisualMode(
+    props.interview ? SHOW : EMPTY
+  );
+
   // const showApp = () => {
   //   if(props.interview){
   //     <Show />
@@ -30,13 +40,23 @@ export default function Appointment(props) {
   //   }
   // }
   
+    // const interviewers=[];
+
+
+console.log("Props.interviewers",props.interviewers);
+console.log("props", props)
+
   return (
-    <article className="appointment">
+    <article id={props.id} className="appointment">
       <Header time={props.time}/> 
-      {props.interview ? 
-      <Show student={props.interview.student}
-      interviewer={props.interview.interviewer}
-      /> : <Empty />}
+      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+      {mode === SHOW && (
+        <Show
+          student={props.interview.student}
+          interviewer={props.interview.interviewer}
+        />
+      )}
+      {mode === CREATE && <Form onCancel={() => back()} interviewers={props.interviewers}/>}
       </article>
     
   );
