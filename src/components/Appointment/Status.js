@@ -4,7 +4,7 @@ import "components/Appointment/styles.scss";
 
 
 
-export default function Show(props) {
+export default function Status(props) {
 
   return (
     <main className="appointment__card appointment__card--status">

@@ -18,11 +18,17 @@ import { tsPropertySignature } from "@babel/types";
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
+const SAVING = "SAVING";
+const DELETING = "DELETING";
+const CONFIRM = "CONFIRM";
+const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
- let appointment = ""
+  let appointment = ""
 
-  if(props.time){
+  if (props.time) {
     appointment += `Appointment at ${props.time}`
   } else {
     appointment += 'No appointments'
@@ -32,32 +38,69 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-  // const showApp = () => {
-  //   if(props.interview){
-  //     <Show />
-  //   } else {
-  //     <Empty />
-  //   }
-  // }
+
+
+  function save(name, interviewer) {
+
+    transition(SAVING)
+
+    const interview = {
+      student: name,
+      interviewer
+    };
+
+    props.bookInterview(props.id, interview)
+      .then(() => transition(SHOW))
+      .catch((err) => {
+        transition(ERROR_SAVE, true);
+      });
+
+    
+  }
+
+
+  function cancel() {
+    transition(CONFIRM)
+
+ 
+  }
+
+  function deleteInterview() {
+    transition(DELETING)
+
+    props.cancelInterview(props.id)
+      .then(() => transition(EMPTY))
+      .catch((err) => {
+        transition(ERROR_DELETE, true);
+      });
+  }
+
+  function editInterview(){
+    transition(EDIT)
+  }
+
+  console.log("Props For index", props);
   
-    // const interviewers=[];
-
-
-console.log("Props.interviewers",props.interviewers);
-console.log("props", props)
-
   return (
     <article id={props.id} className="appointment">
-      <Header time={props.time}/> 
+      <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+      {mode === SAVING && <Status message={"Saving"} />}
       {mode === SHOW && (
         <Show
-          student={props.interview.student}
-          interviewer={props.interview.interviewer}
+          student={props.interview ? props.interview.student : ""}
+          interviewer={props.interview ? props.interview.interviewer : ""}
+          onDelete={cancel}
+          onEdit={editInterview}
         />
       )}
-      {mode === CREATE && <Form onCancel={() => back()} interviewers={props.interviewers}/>}
-      </article>
-    
+      {mode === DELETING && <Status message={"DELETING"} />}
+      {mode === CONFIRM && <Confirm  onCancel={() => back()} onConfirm={deleteInterview}/>}
+      {mode === EDIT && <Form  onCancel={() => back()} student={props.interview.student} interviewer={props.interview.interviewer.id}interviewers={props.interviewers} onSave={save} />}
+      {mode === CREATE && <Form onCancel={() => back()} interviewers={props.interviewers} onSave={save} />}
+      {mode === ERROR_SAVE && <Error message="Error saving, please try again later" onClose={() => back()}/>}
+      {mode === ERROR_DELETE && <Error message="Error deleting, please try again later" onClose={() => back()}/>}
+    </article>
+
   );
 }
