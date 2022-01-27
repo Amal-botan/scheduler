@@ -1,7 +1,7 @@
 # Interview Scheduler
 ## Description
 
-Create a modern client application using the React view library. This application allows users to book, cancel and edit interviews with potiential interviewers from Monday through Friday. 
+ A modern client application using the React view library. This application allows users to book, cancel and edit interviews with potiential interviewers from Monday through Friday. 
 
 
 ## Functionality
