@@ -53,8 +53,6 @@ export default function useApplicationData() {
 
         console.log("State", state);
 
-      }).catch((err) => {
-        console.log(err);
       })
 
 

@@ -54,10 +54,7 @@ export default function Appointment(props) {
   
     props.bookInterview(props.id, interview, prevMode)
       .then(() => transition(SHOW))
-      .catch((err) => {
-        transition(ERROR_SAVE, true);
-      });
-    
+      .catch(() => transition(ERROR_SAVE, true));
     
   }
 
@@ -101,8 +98,8 @@ export default function Appointment(props) {
       {mode === CONFIRM && <Confirm  onCancel={() => back()} onConfirm={deleteInterview}/>}
       {mode === EDIT && <Form  onCancel={() => back()} student={props.interview.student} interviewer={props.interview.interviewer.id}interviewers={props.interviewers} onSave={save} />}
       {mode === CREATE && <Form onCancel={() => back()} interviewers={props.interviewers} onSave={save} />}
-      {mode === ERROR_SAVE && <Error message="Error saving, please try again later" onClose={() => back()}/>}
-      {mode === ERROR_DELETE && <Error message="Error deleting, please try again later" onClose={() => back()}/>}
+      {mode === ERROR_SAVE && <Error message="Error saving, please try again later" onClose={() => transition(CREATE)}/>}
+      {mode === ERROR_DELETE && <Error message="Error deleting, please try again later" onClose={() => transition(SHOW)}/>}
     </article>
 
   );

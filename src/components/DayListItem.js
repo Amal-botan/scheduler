@@ -21,11 +21,7 @@ export default function DayListItem(props) {
     return spotsMessage;
   };
 
-  console.log(formatSpots(props.spots));
 
-  // const handleClick = () => {props.setDay(props.name)}; 
-
-  console.log("props", props);
 
   return (
     <li onClick={props.setDay} className={dayListItemClass}>
