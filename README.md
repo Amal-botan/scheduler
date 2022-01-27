@@ -1,4 +1,25 @@
 # Interview Scheduler
+## Description
+
+Create a modern client application using the React view library. This application allows users to book, cancel and edit interviews with potiential interviewers from Monday through Friday. 
+
+
+## Functionality
+
+* Development focuses on a single page application (SPA) called Interview Scheduler, built using React.
+* Data is persisted by the API server using a PostgreSQL database.
+* The client application communicates with an API server over HTTP, using the JSON format.
+* Jest tests are used through the development of the project.
+
+## Technical Specifications
+
+* React
+* Webpack, Babel
+* Axios, WebSockets
+* Axios
+* Storybook, Webpack Dev Server, Jest, Testing Library
+
+The Scheduler client application created using Create React App. Express is the basis for the Scheduler API server application
 
 ## Setup
 
@@ -21,3 +42,10 @@ npm test
 ```sh
 npm run storybook
 ```
+
+References
+* [Lighthouse Labs](https://www.lighthouselabs.ca)
+* [React Documentation](https://reactjs.org/docs/getting-started.html)
+* [Storybook Documentation](https://storybook.js.org/docs/react/get-started/introduction)
+* [Jest Documentation](https://jestjs.io/docs/getting-started)
+* [Axios Example](https://github.com/axios/axios#example)
