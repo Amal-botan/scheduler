@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import "components/Appointment/styles.scss";
 import Button from "components/Button";
-import InterviewerListItem from "components/InterviewerListItem";
 import InterviewerList from "components/InterviewerList";
 
 export default function Form(props) {
@@ -22,20 +21,15 @@ export default function Form(props) {
     props.onCancel()
   }
 
-
-    // const saveInfo = () => {
-    //   props.onSave(student, interviewer)
-    // }
-
-    function validate() {
-      if (student === "" || interviewer === null ) {
-        setError("Student name cannot be blank and Interviewer must be selected");
-        return;
-      }
-    
-      setError("");
-      props.onSave(student, interviewer);
+  function validate() {
+    if (student === "" || interviewer === null) {
+      setError("Student name cannot be blank and Interviewer must be selected");
+      return;
     }
+
+    setError("");
+    props.onSave(student, interviewer);
+  }
 
 
   return (

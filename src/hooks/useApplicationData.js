@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function useApplicationData() {
@@ -34,32 +34,17 @@ export default function useApplicationData() {
       })
     }
 
-    // const stateDays = state.days.map((day) => {
-
-    //   if(day.name === state.day){
-    //         // day.spots -= 1; 
-    //         return {...day, spots: day.spots - 1}
-    //       } else {
-    //         return {...day}
-    //       }
-
-    // })
-
     return axios.put(`http://localhost:8000/api/appointments/${id}`, appointments[id])
       .then((res) => {
 
 
         setState({ ...state, appointments, days: stateDays })
-
-        console.log("State", state);
-
       })
 
 
   }
 
   function cancelInterview(id) {
-    console.log(id);
     const appointment = {
       ...state.appointments[id],
       interview: null
@@ -85,9 +70,7 @@ export default function useApplicationData() {
       .then((res) => {
 
 
-        console.log(res.data)
         setState({ ...state, appointments, days: stateDays })
-        console.log("State", state);
       })
 
   }
@@ -102,15 +85,12 @@ export default function useApplicationData() {
       axios.get(appointmentsURL),
       axios.get(interviewersURL)
     ]).then((all) => {
-      console.log(all)
       const [days, appointments, interviewers] = all;
-      console.log("Data", days.data, appointments.data, interviewers.data)
 
       setState(prev => ({ ...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data }));
 
 
     }).catch((err) => {
-      console.log('err')
     })
   }, []);
 

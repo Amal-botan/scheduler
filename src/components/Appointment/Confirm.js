@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "components/Appointment/styles.scss";
 import Button from "components/Button";
 
-
+//Function for the confirm page after deleting 
 export default function Confirm(props) {
 
   return (

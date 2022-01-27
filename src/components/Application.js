@@ -1,6 +1,5 @@
 
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
@@ -17,9 +16,9 @@ export default function Application() {
   } = useApplicationData();
 
 
-  const dailyAppointments =  getAppointmentsForDay(state, state.day);
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
 
-  
+
   const schedule = dailyAppointments.map((appointment) => {
 
     return (
@@ -45,11 +44,11 @@ export default function Application() {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-        <DayList
-          days={state.days}
-          value={state.day}
-          onChange={setDay}
-        />
+          <DayList
+            days={state.days}
+            value={state.day}
+            onChange={setDay}
+          />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
